@@ -5,21 +5,16 @@ import java.util.Stack;
 
 public class reverseList {
     public static ListNode reverseLists(ListNode head){
-        ListNode reverse;
-        Stack<ListNode>stack=new Stack<>();
-        while (head!=null){
-            reverse=head.next;
-            head.next=null;
-            stack.add(head);
-            head=reverse;
+        ListNode prev=null;
+        ListNode current=head;
+        ListNode next= new ListNode();
+        while (current!=null){
+            next=current.next;
+            current.next=prev;
+            prev=current;
+            current=next;
         }
-      reverse= new ListNode();
-        ListNode RES=reverse;
-        while (!stack.isEmpty()){
-            reverse.next=stack.pop();
-            reverse=reverse.next;
-        }
-        return RES.next;
+        return prev;
     }
 
     public static void main(String[] args) {
@@ -30,6 +25,8 @@ public class reverseList {
             a.next=new ListNode(nums[i]);
             a=a.next;
         }
+        ListNode res=reverseLists(t);
+        System.out.println(res.val);
     }
 
 }
